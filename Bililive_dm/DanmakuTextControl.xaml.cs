@@ -19,36 +19,40 @@ namespace Bililive_dm
     /// </summary>
     public partial class DanmakuTextControl : UserControl
     {
-        public DanmakuTextControl()
+        private readonly int _addtime;
+
+        public DanmakuTextControl(int addtime=0)
         {
+            _addtime = addtime;
             this.InitializeComponent();
-            this.Loaded += DanmakuTextControl_Loaded;
-
-
-            var sb = (Storyboard) this.Resources["Storyboard1"];
+            var sb = (Storyboard)this.Resources["Storyboard1"];
             Storyboard.SetTarget(sb.Children[2], this);
 
             (sb.Children[0] as DoubleAnimationUsingKeyFrames).KeyFrames[1].KeyTime =
-                KeyTime.FromTimeSpan(new TimeSpan(Convert.ToInt64(Store.MainOverlayEffect1*TimeSpan.TicksPerSecond)));
+                KeyTime.FromTimeSpan(new TimeSpan(Convert.ToInt64(Store.MainOverlayEffect1 * TimeSpan.TicksPerSecond)));
 
             (sb.Children[1] as DoubleAnimationUsingKeyFrames).KeyFrames[1].KeyTime =
-                KeyTime.FromTimeSpan(new TimeSpan(Convert.ToInt64(Store.MainOverlayEffect1*TimeSpan.TicksPerSecond)));
+                KeyTime.FromTimeSpan(new TimeSpan(Convert.ToInt64(Store.MainOverlayEffect1 * TimeSpan.TicksPerSecond)));
 
             (sb.Children[1] as DoubleAnimationUsingKeyFrames).KeyFrames[2].KeyTime =
                 KeyTime.FromTimeSpan(
                     new TimeSpan(
-                        Convert.ToInt64((Store.MainOverlayEffect2 + Store.MainOverlayEffect1)*TimeSpan.TicksPerSecond)));
+                        Convert.ToInt64((Store.MainOverlayEffect2 + Store.MainOverlayEffect1) * TimeSpan.TicksPerSecond)));
 
             (sb.Children[2] as DoubleAnimationUsingKeyFrames).KeyFrames[0].KeyTime =
                 KeyTime.FromTimeSpan(
                     new TimeSpan(
-                        Convert.ToInt64((Store.MainOverlayEffect3 + Store.MainOverlayEffect2 + Store.MainOverlayEffect1)*
+                        Convert.ToInt64((Store.MainOverlayEffect3 + Store.MainOverlayEffect2 + Store.MainOverlayEffect1 + _addtime) *
                                         TimeSpan.TicksPerSecond)));
             (sb.Children[2] as DoubleAnimationUsingKeyFrames).KeyFrames[1].KeyTime =
                 KeyTime.FromTimeSpan(
                     new TimeSpan(
                         Convert.ToInt64((Store.MainOverlayEffect4 + Store.MainOverlayEffect3 + Store.MainOverlayEffect2 +
-                                         Store.MainOverlayEffect1)*TimeSpan.TicksPerSecond)));
+                                         Store.MainOverlayEffect1 + _addtime) * TimeSpan.TicksPerSecond)));
+            this.Loaded += DanmakuTextControl_Loaded;
+
+
+        
         }
 
         public void ChangeHeight()
@@ -62,6 +66,30 @@ namespace Bililive_dm
 
         private void DanmakuTextControl_Loaded(object sender, RoutedEventArgs e)
         {
+            var sb = (Storyboard)this.Resources["Storyboard1"];
+            Storyboard.SetTarget(sb.Children[2], this);
+
+            (sb.Children[0] as DoubleAnimationUsingKeyFrames).KeyFrames[1].KeyTime =
+                KeyTime.FromTimeSpan(new TimeSpan(Convert.ToInt64(Store.MainOverlayEffect1 * TimeSpan.TicksPerSecond)));
+
+            (sb.Children[1] as DoubleAnimationUsingKeyFrames).KeyFrames[1].KeyTime =
+                KeyTime.FromTimeSpan(new TimeSpan(Convert.ToInt64(Store.MainOverlayEffect1 * TimeSpan.TicksPerSecond)));
+
+            (sb.Children[1] as DoubleAnimationUsingKeyFrames).KeyFrames[2].KeyTime =
+                KeyTime.FromTimeSpan(
+                    new TimeSpan(
+                        Convert.ToInt64((Store.MainOverlayEffect2 + Store.MainOverlayEffect1) * TimeSpan.TicksPerSecond)));
+
+            (sb.Children[2] as DoubleAnimationUsingKeyFrames).KeyFrames[0].KeyTime =
+                KeyTime.FromTimeSpan(
+                    new TimeSpan(
+                        Convert.ToInt64((Store.MainOverlayEffect3 + Store.MainOverlayEffect2 + Store.MainOverlayEffect1 + _addtime) *
+                                        TimeSpan.TicksPerSecond)));
+            (sb.Children[2] as DoubleAnimationUsingKeyFrames).KeyFrames[1].KeyTime =
+                KeyTime.FromTimeSpan(
+                    new TimeSpan(
+                        Convert.ToInt64((Store.MainOverlayEffect4 + Store.MainOverlayEffect3 + Store.MainOverlayEffect2 +
+                                         Store.MainOverlayEffect1 + _addtime) * TimeSpan.TicksPerSecond)));
             this.Loaded -= DanmakuTextControl_Loaded;
         }
     }
